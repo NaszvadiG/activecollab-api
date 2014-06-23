@@ -2,12 +2,14 @@
 
 namespace Terminal42\ActiveCollabApi\Model;
 
-use Terminal42\ActiveCollabApi\Repository\ContextAwareTrait;
-
 trait ProjectObjectTrait
 {
     use RepositoryAwareTrait;
 
+    /**
+     * Copy a project object to a specific project
+     * @param int $id
+     */
     public function copyToProject($id)
     {
         $this->getRepository()->getApiClient()->post(
@@ -16,6 +18,10 @@ trait ProjectObjectTrait
         );
     }
 
+    /**
+     * Move project object to a specific project
+     * @param int $id
+     */
     public function moveToProject($id)
     {
         $this->getRepository()->getApiClient()->post(
