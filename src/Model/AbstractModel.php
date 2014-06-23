@@ -25,6 +25,7 @@ abstract class AbstractModel
     }
 
     /**
+     * Get a model property
      * @param string $key
      * @return mixed
      */
@@ -49,5 +50,28 @@ abstract class AbstractModel
         }
 
         return $varValue;
+    }
+
+    /**
+     * Set a model property
+     * @param $key
+     * @param $value
+     * @return $this
+     */
+    public function __set($key, $value)
+    {
+        $this->data->$key = $value;
+
+        return $this;
+    }
+
+    /**
+     * Check if property is set
+     * @param $key
+     * @return bool
+     */
+    public function __isset($key)
+    {
+        return isset($this->data->$key);
     }
 }
