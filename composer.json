@@ -1,0 +1,25 @@
+{
+    "name": "terminal42/activecollab-api",
+    "description": "A full featured PHP implementation of the activeCollab API",
+    "minimum-stability": "stable",
+    "license": "LGPL-3+",
+    "authors": [
+        {
+            "name": "terminal42 gmbh",
+            "email": "info@terminal42.ch"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Terminal42\\ActiveCollabApi\\": "src/",
+            "Terminal42\\ActiveCollabApi\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*",
+        "phpunit/phpunit-mock-objects": "2.*"
+    },
+    "require": {
+        "guzzlehttp/guzzle": "4.*"
+    }
+}
