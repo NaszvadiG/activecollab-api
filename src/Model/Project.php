@@ -40,17 +40,87 @@ class Project extends AbstractModel implements StateInterface
      */
     protected $repository;
 
-
+    /**
+     * Get tasks repository for project
+     * @return \Terminal42\ActiveCollabApi\Repository\Tasks
+     */
     public function tasks()
     {
         return $this->repository->getApiClient()->tasksForProject($this->id);
     }
 
+    /**
+     * Get discussions repository for project
+     * @return \Terminal42\ActiveCollabApi\Repository\Discussions
+     */
+    public function discussions()
+    {
+        return $this->repository->getApiClient()->discussionsForProject($this->id);
+    }
+
+    /**
+     * Get notebooks repository for project
+     * @return \Terminal42\ActiveCollabApi\Repository\Notebooks
+     */
+    public function notebooks()
+    {
+        return $this->repository->getApiClient()->notebooksForProject($this->id);
+    }
+
+    /**
+     * Get milestones repository for project
+     * @return \Terminal42\ActiveCollabApi\Repository\Milestones
+     */
+    public function milestones()
+    {
+        return $this->repository->getApiClient()->milestonesForProject($this->id);
+    }
+
+    /**
+     * Get files repository for project
+     * @return \Terminal42\ActiveCollabApi\Repository\Files
+     */
+    public function files()
+    {
+        return $this->repository->getApiClient()->filesForProject($this->id);
+    }
+
+    /**
+     * Get text documents repository for project
+     * @return \Terminal42\ActiveCollabApi\Repository\TextDocuments
+     */
+    public function textDocuments()
+    {
+        return $this->repository->getApiClient()->textDocumentsForProject($this->id);
+    }
+
+    /**
+     * Get categories repository for project
+     * @return \Terminal42\ActiveCollabApi\Repository\Categories
+     */
+    public function categories()
+    {
+        return $this->repository->getApiClient()->categoriesForContext($this->getContext());
+    }
+
+    /**
+     * Get state command for project
+     * @return State
+     */
     public function state()
     {
         $state = new State($this->repository->getApiClient());
-        $state->setContext('projects/'.$this->id);
+        $state->setContext($this->getContext());
 
         return $state;
+    }
+
+    /**
+     * Get project context
+     * @return string
+     */
+    protected function getContext()
+    {
+        return 'projects/'.$this->id;
     }
 }
