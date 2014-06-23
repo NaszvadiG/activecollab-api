@@ -38,4 +38,64 @@ class Companies extends AbstractRepository
 
         return $companies;
     }
+
+    /**
+     * Find company by ID
+     * @param int $id
+     * @return Company
+     */
+    public function findById($id)
+    {
+        return new Company(
+            $this->getApiClient()->get('people/' . $id),
+            $this
+        );
+    }
+
+    /**
+     * Add a new company
+     * @param Company $company
+     * @return Company
+     */
+    public function create(Company $company)
+    {
+        $result = $this->getApiClient()->post(
+            'people/add-company',
+            $this->getPostData($company)
+        );
+
+        return new Company($result, $this);
+    }
+
+    /**
+     * Update company
+     * @param Company $company
+     * @return Company
+     */
+    public function update(Company $company)
+    {
+        $result = $this->getApiClient()->post(
+            'people/'.$company->id.'/edit',
+            $this->getPostData($company)
+        );
+
+        return new Company($result, $this);
+    }
+
+    /**
+     * Validate and prepare company properties for POST
+     * @param Company $company
+     * @return array
+     */
+    protected function getPostData(Company $company)
+    {
+        return $this->compilePostFields($company, [
+            'name'            => 'string',
+            'office_address'  => 'string',
+            'office_phone'    => 'string',
+            'office_fax'      => 'string',
+            'office_homepage' => 'string',
+            'note'            => 'string',
+        ]);
+    }
 }
