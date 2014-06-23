@@ -15,7 +15,7 @@ class Discussions extends AbstractRepository
     public function findAll()
     {
         $discussions = array();
-        $records = $this->getApiClient()->get($this->getProjectContext() . '/discussions');
+        $records = $this->getApiClient()->get($this->getContext() . '/discussions');
 
         foreach ($records as $data) {
             $discussions[] = new Discussion($data, $this);

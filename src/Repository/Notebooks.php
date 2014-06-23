@@ -15,7 +15,7 @@ class Notebooks extends AbstractRepository
     public function findAll()
     {
         $notebooks = array();
-        $records = $this->getApiClient()->get($this->getProjectContext() . '/notebooks');
+        $records = $this->getApiClient()->get($this->getContext() . '/notebooks');
 
         foreach ($records as $data) {
             $notebooks[] = new Notebook($data, $this);

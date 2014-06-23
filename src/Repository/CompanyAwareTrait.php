@@ -4,28 +4,7 @@ namespace Terminal42\ActiveCollabApi\Repository;
 
 trait CompanyAwareTrait
 {
-    /**
-     * @var int
-     */
-    protected $company_id = '';
-
-    /**
-     * Get company ID
-     * @return int
-     */
-    public function getCompanyId()
-    {
-        return $this->company_id;
-    }
-
-    /**
-     * Get context URL for company
-     * @return string
-     */
-    public function getCompanyContext()
-    {
-        return 'people/'.$this->company_id;
-    }
+    use ContextAwareTrait;
 
     /**
      * Set company ID
@@ -34,8 +13,6 @@ trait CompanyAwareTrait
      */
     public function setCompanyId($id)
     {
-        $this->company_id = (int) $id;
-
-        return $this;
+        return $this->setContext('people/'.$id);
     }
 }

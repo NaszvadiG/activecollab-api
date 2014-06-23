@@ -15,7 +15,7 @@ class Users extends AbstractRepository
     public function findAll()
     {
         $users = array();
-        $records = $this->getApiClient()->get($this->getCompanyContext().'/users');
+        $records = $this->getApiClient()->get($this->getContext().'/users');
 
         foreach ($records as $data) {
             $users[] = new User($data, $this);

@@ -15,7 +15,7 @@ class Tasks extends AbstractRepository
     public function findAll()
     {
         $tasks = array();
-        $records = $this->getApiClient()->get($this->getProjectContext() . '/tasks');
+        $records = $this->getApiClient()->get($this->getContext() . '/tasks');
 
         foreach ($records as $data) {
             $tasks[] = new Task($data, $this);
@@ -32,7 +32,7 @@ class Tasks extends AbstractRepository
     public function findByTaskId($id)
     {
         return new Task(
-            $this->getApiClient()->get($this->getProjectContext() . '/tasks/' . $id),
+            $this->getApiClient()->get($this->getContext() . '/tasks/' . $id),
             $this
         );
     }
