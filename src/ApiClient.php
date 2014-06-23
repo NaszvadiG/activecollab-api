@@ -141,7 +141,7 @@ class ApiClient extends BaseApiClient
 
     /**
      * Get comments repository for given context
-     * @param $context
+     * @param string $context
      * @return Comments
      */
     public function commentsForContext($context)
@@ -154,7 +154,7 @@ class ApiClient extends BaseApiClient
 
     /**
      * Get attachments repository for context
-     * @param $context
+     * @param string $context
      * @return Attachments
      */
     public function attachmentsForContext($context)
@@ -167,7 +167,7 @@ class ApiClient extends BaseApiClient
 
     /**
      * Get categories repository for context
-     * @param $context
+     * @param string $context
      * @return Categories
      */
     public function categoriesForContext($context)
