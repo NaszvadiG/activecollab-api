@@ -12,6 +12,7 @@ use Terminal42\ActiveCollabApi\Repository\Files;
 use Terminal42\ActiveCollabApi\Repository\Milestones;
 use Terminal42\ActiveCollabApi\Repository\Notebooks;
 use Terminal42\ActiveCollabApi\Repository\Projects;
+use Terminal42\ActiveCollabApi\Repository\Subtasks;
 use Terminal42\ActiveCollabApi\Repository\Tasks;
 use Terminal42\ActiveCollabApi\Repository\TextDocuments;
 use Terminal42\ActiveCollabApi\Repository\Users;
@@ -135,6 +136,19 @@ class ApiClient extends BaseApiClient
     {
         $repository = new TextDocuments($this);
         $repository->setProjectId($id_or_slug);
+
+        return $repository;
+    }
+
+    /**
+     * Get subtasks repository for given context
+     * @param string $context
+     * @return Tasks
+     */
+    public function subtasksForContext($context)
+    {
+        $repository = new Subtasks($this);
+        $repository->setContext($context);
 
         return $repository;
     }

@@ -16,6 +16,7 @@ use Terminal42\ActiveCollabApi\Repository\Comments;
 use Terminal42\ActiveCollabApi\Repository\CommentsInterface;
 use Terminal42\ActiveCollabApi\Repository\Reminders;
 use Terminal42\ActiveCollabApi\Repository\RemindersInterface;
+use Terminal42\ActiveCollabApi\Repository\Subtasks;
 use Terminal42\ActiveCollabApi\Repository\Tasks;
 
 /**
@@ -51,6 +52,18 @@ class Task extends AbstractModel implements
      * @var Tasks
      */
     protected $repository;
+
+    /**
+     * Get subtasks repository for this task
+     * @return Subtasks
+     */
+    public function subtasks()
+    {
+        $subtasks = new Subtasks($this->repository->getApiClient());
+        $subtasks->setContext($this->getContext());
+
+        return $subtasks;
+    }
 
     /**
      * Get categories repository for this task
