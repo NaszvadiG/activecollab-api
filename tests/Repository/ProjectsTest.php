@@ -20,7 +20,7 @@ class ProjectsTest extends \PHPUnit_Framework_TestCase
 
     public function setup()
     {
-        $this->api = $this->getMock('\Terminal42\ActiveCollabApi\ApiClient', array('sendRequest'), array(), '', false);
+        $this->api = $this->getMock('\Terminal42\ActiveCollabApi\ApiClient', array('get'), array(), '', false);
     }
 
     public function testRepository()
@@ -38,8 +38,9 @@ class ProjectsTest extends \PHPUnit_Framework_TestCase
             'name'  => 'test'
         );
 
-        $this->api->expects($this->atLeastOnce())
-            ->method('sendRequest')
+        $this->api->expects($this->once())
+            ->method('get')
+            ->with($this->equalTo('projects'))
             ->will($this->returnValue(array($data)));
 
         $this->assertEquals(
@@ -57,8 +58,9 @@ class ProjectsTest extends \PHPUnit_Framework_TestCase
             'name'  => 'test'
         );
 
-        $this->api->expects($this->atLeastOnce())
-            ->method('sendRequest')
+        $this->api->expects($this->once())
+            ->method('get')
+            ->with($this->equalTo('projects/archive'))
             ->will($this->returnValue(array($data)));
 
         $this->assertEquals(

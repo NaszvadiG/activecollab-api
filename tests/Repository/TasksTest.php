@@ -20,7 +20,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
 
     public function setup()
     {
-        $this->api = $this->getMock('\Terminal42\ActiveCollabApi\ApiClient', array('sendRequest'), array(), '', false);
+        $this->api = $this->getMock('\Terminal42\ActiveCollabApi\ApiClient', array('get'), array(), '', false);
     }
 
     public function testRepository()
@@ -28,7 +28,7 @@ class TasksTest extends \PHPUnit_Framework_TestCase
         $repository = $this->api->tasksForProject('project_id');
 
         $this->assertInstanceOf('\Terminal42\ActiveCollabApi\Repository\Tasks', $repository);
-        $this->assertEquals('project_id', $repository->getProjectId());
+        $this->assertEquals('projects/project_id', $repository->getContext());
     }
 
     public function testFindAll()
@@ -38,8 +38,9 @@ class TasksTest extends \PHPUnit_Framework_TestCase
             'name'  => 'test'
         );
 
-        $this->api->expects($this->any())
-            ->method('sendRequest')
+        $this->api->expects($this->once())
+            ->method('get')
+            ->with($this->equalTo('projects/project_id/tasks'))
             ->will($this->returnValue(array($data)));
 
         $this->assertEquals(

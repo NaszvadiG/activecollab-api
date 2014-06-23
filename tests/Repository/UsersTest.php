@@ -20,7 +20,7 @@ class UsersTest extends \PHPUnit_Framework_TestCase
 
     public function setup()
     {
-        $this->api = $this->getMock('\Terminal42\ActiveCollabApi\ApiClient', array('sendRequest'), array(), '', false);
+        $this->api = $this->getMock('\Terminal42\ActiveCollabApi\ApiClient', array('get'), array(), '', false);
     }
 
     public function testRepository()
@@ -28,7 +28,7 @@ class UsersTest extends \PHPUnit_Framework_TestCase
         $repository = $this->api->usersForCompany(1);
 
         $this->assertInstanceOf('\Terminal42\ActiveCollabApi\Repository\Users', $repository);
-        $this->assertEquals(1, $repository->getCompanyId());
+        $this->assertEquals('people/1', $repository->getContext());
     }
 
     public function testFindAll()
@@ -38,8 +38,9 @@ class UsersTest extends \PHPUnit_Framework_TestCase
             'name'  => 'test'
         );
 
-        $this->api->expects($this->any())
-            ->method('sendRequest')
+        $this->api->expects($this->once())
+            ->method('get')
+            ->with($this->equalTo('people/1/users'))
             ->will($this->returnValue(array($data)));
 
         $this->assertEquals(

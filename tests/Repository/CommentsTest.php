@@ -20,7 +20,7 @@ class CommentsTest extends \PHPUnit_Framework_TestCase
 
     public function setup()
     {
-        $this->api = $this->getMock('\Terminal42\ActiveCollabApi\ApiClient', array('sendRequest'), array(), '', false);
+        $this->api = $this->getMock('\Terminal42\ActiveCollabApi\ApiClient', array('get'), array(), '', false);
     }
 
     public function testRepository()
@@ -38,8 +38,9 @@ class CommentsTest extends \PHPUnit_Framework_TestCase
             'name'  => 'test'
         );
 
-        $this->api->expects($this->any())
-            ->method('sendRequest')
+        $this->api->expects($this->once())
+            ->method('get')
+            ->with($this->equalTo('context/comments'))
             ->will($this->returnValue(array($data)));
 
         $this->assertEquals(
