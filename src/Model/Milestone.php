@@ -6,6 +6,10 @@ use Terminal42\ActiveCollabApi\Command\State;
 use Terminal42\ActiveCollabApi\Command\StateInterface;
 use Terminal42\ActiveCollabApi\Repository\Milestones;
 
+/**
+ * Class Milestone
+ * @property int $id
+ */
 class Milestone extends AbstractModel implements StateInterface
 {
     /**

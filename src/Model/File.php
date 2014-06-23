@@ -6,6 +6,10 @@ use Terminal42\ActiveCollabApi\Command\State;
 use Terminal42\ActiveCollabApi\Command\StateInterface;
 use Terminal42\ActiveCollabApi\Repository\Files;
 
+/**
+ * Class File
+ * @property int $id
+ */
 class File extends AbstractModel implements StateInterface
 {
     /**

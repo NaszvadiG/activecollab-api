@@ -6,6 +6,10 @@ use Terminal42\ActiveCollabApi\Command\State;
 use Terminal42\ActiveCollabApi\Command\StateInterface;
 use Terminal42\ActiveCollabApi\Repository\Notebooks;
 
+/**
+ * Class Notebook
+ * @property int $id
+ */
 class Notebook extends AbstractModel implements StateInterface
 {
     /**

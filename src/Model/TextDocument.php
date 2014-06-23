@@ -6,6 +6,10 @@ use Terminal42\ActiveCollabApi\Command\State;
 use Terminal42\ActiveCollabApi\Command\StateInterface;
 use Terminal42\ActiveCollabApi\Repository\TextDocuments;
 
+/**
+ * Class TextDocument
+ * @property int $id
+ */
 class TextDocument extends AbstractModel implements StateInterface
 {
     /**

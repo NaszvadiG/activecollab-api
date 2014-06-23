@@ -6,6 +6,10 @@ use Terminal42\ActiveCollabApi\Command\State;
 use Terminal42\ActiveCollabApi\Command\StateInterface;
 use Terminal42\ActiveCollabApi\Repository\Discussions;
 
+/**
+ * Class Discussion
+ * @property int $id
+ */
 class Discussion extends AbstractModel implements StateInterface
 {
     /**

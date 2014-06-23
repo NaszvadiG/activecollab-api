@@ -4,12 +4,6 @@ namespace Terminal42\ActiveCollabApi\Repository;
 
 use Terminal42\ActiveCollabApi\Model\Category;
 
-/**
- * Class Categories
- *
- * @property int $id
- * @property string $name
- */
 class Categories extends AbstractRepository
 {
     use ContextAwareTrait;
