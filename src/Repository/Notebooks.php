@@ -23,4 +23,20 @@ class Notebooks extends AbstractRepository
 
         return $notebooks;
     }
+
+    /**
+     * Get archived notebooks on the project
+     * @return Notebook[]
+     */
+    public function findArchived()
+    {
+        $notebooks = array();
+        $records = $this->getApiClient()->get($this->getContext() . '/notebooks/archive');
+
+        foreach ($records as $data) {
+            $notebooks[] = new Notebook($data, $this);
+        }
+
+        return $notebooks;
+    }
 }

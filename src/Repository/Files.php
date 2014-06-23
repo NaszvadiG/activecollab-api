@@ -23,4 +23,20 @@ class Files extends AbstractRepository
 
         return $files;
     }
+
+    /**
+     * Get archived files on the project
+     * @return File[]
+     */
+    public function findArchived()
+    {
+        $files = array();
+        $records = $this->getApiClient()->get($this->getContext() . '/files/archive');
+
+        foreach ($records as $data) {
+            $files[] = new File($data, $this);
+        }
+
+        return $files;
+    }
 }

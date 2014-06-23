@@ -25,6 +25,22 @@ class Tasks extends AbstractRepository
     }
 
     /**
+     * Get archived tasks on the project
+     * @return Task[]
+     */
+    public function findArchived()
+    {
+        $tasks = array();
+        $records = $this->getApiClient()->get($this->getContext() . '/tasks/archive');
+
+        foreach ($records as $data) {
+            $tasks[] = new Task($data, $this);
+        }
+
+        return $tasks;
+    }
+
+    /**
      * Find a task by task ID (not the ProjectObject ID!)
      * @param int $id
      * @return Task
