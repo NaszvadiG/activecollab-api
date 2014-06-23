@@ -11,8 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Terminal42\\ActiveCollabApi\\": "src/",
-            "Terminal42\\ActiveCollabApi\\": "tests/"
+            "Terminal42\\ActiveCollabApi\\": ["src/", "tests/"]
         }
     },
     "require-dev": {
