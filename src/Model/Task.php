@@ -2,13 +2,21 @@
 
 namespace Terminal42\ActiveCollabApi\Model;
 
-use Terminal42\ActiveCollabApi\Repository\Attachments;
-use Terminal42\ActiveCollabApi\Repository\Comments;
-use Terminal42\ActiveCollabApi\Repository\Tasks;
 use Terminal42\ActiveCollabApi\Command\CompletionStatus;
 use Terminal42\ActiveCollabApi\Command\CompletionStatusInterface;
 use Terminal42\ActiveCollabApi\Command\State;
 use Terminal42\ActiveCollabApi\Command\StateInterface;
+use Terminal42\ActiveCollabApi\Command\Subscription;
+use Terminal42\ActiveCollabApi\Command\SubscriptionInterface;
+use Terminal42\ActiveCollabApi\Repository\Attachments;
+use Terminal42\ActiveCollabApi\Repository\AttachmentsInterface;
+use Terminal42\ActiveCollabApi\Repository\Categories;
+use Terminal42\ActiveCollabApi\Repository\CategoriesInterface;
+use Terminal42\ActiveCollabApi\Repository\Comments;
+use Terminal42\ActiveCollabApi\Repository\CommentsInterface;
+use Terminal42\ActiveCollabApi\Repository\Reminders;
+use Terminal42\ActiveCollabApi\Repository\RemindersInterface;
+use Terminal42\ActiveCollabApi\Repository\Tasks;
 
 /**
  * Class Task
@@ -28,7 +36,14 @@ use Terminal42\ActiveCollabApi\Command\StateInterface;
  * @property string $created_by_name Use for anonymous user, who don't have an account in the system (can not be used with created_by_id).
  * @property string $created_by_email Used for anonymous users.
  */
-class Task extends AbstractModel implements StateInterface, CompletionStatusInterface
+class Task extends AbstractModel implements
+    CategoriesInterface,
+    AttachmentsInterface,
+    CommentsInterface,
+    RemindersInterface,
+    SubscriptionInterface,
+    CompletionStatusInterface,
+    StateInterface
 {
     use ProjectObjectTrait;
 
@@ -38,15 +53,15 @@ class Task extends AbstractModel implements StateInterface, CompletionStatusInte
     protected $repository;
 
     /**
-     * Get comments repository for this task
-     * @return Comments
+     * Get categories repository for this task
+     * @return Categories
      */
-    public function comments()
+    public function categories()
     {
-        $comments = new Comments($this->repository->getApiClient());
-        $comments->setContext($this->getContext());
+        $categories = new Categories($this->repository->getApiClient());
+        $categories->setContext($this->getContext());
 
-        return $comments;
+        return $categories;
     }
 
     /**
@@ -62,15 +77,39 @@ class Task extends AbstractModel implements StateInterface, CompletionStatusInte
     }
 
     /**
-     * Get state commands for this task
-     * @return State
+     * Get comments repository for this task
+     * @return Comments
      */
-    public function state()
+    public function comments()
     {
-        $state = new State($this->repository->getApiClient());
-        $state->setContext($this->getContext());
+        $comments = new Comments($this->repository->getApiClient());
+        $comments->setContext($this->getContext());
 
-        return $state;
+        return $comments;
+    }
+
+    /**
+     * Get reminders repository for this task
+     * @return Reminders
+     */
+    public function reminders()
+    {
+        $categories = new Reminders($this->repository->getApiClient());
+        $categories->setContext($this->getContext());
+
+        return $categories;
+    }
+
+    /**
+     * Get subscription commands for this task
+     * @return CompletionStatus
+     */
+    public function subscription()
+    {
+        $subscription = new Subscription($this->repository->getApiClient());
+        $subscription->setContext($this->getContext());
+
+        return $subscription;
     }
 
     /**
@@ -86,11 +125,23 @@ class Task extends AbstractModel implements StateInterface, CompletionStatusInte
     }
 
     /**
+     * Get state commands for this task
+     * @return State
+     */
+    public function state()
+    {
+        $state = new State($this->repository->getApiClient());
+        $state->setContext($this->getContext());
+
+        return $state;
+    }
+
+    /**
      * Get context for this task
      * @return string
      */
     protected function getContext()
     {
-        return 'projects/'.$this->repository->getProjectId().'/tasks/'.$this->id;
+        return $this->repository->getContext().'/tasks/'.$this->id;
     }
 }
