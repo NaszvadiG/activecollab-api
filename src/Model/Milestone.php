@@ -12,6 +12,8 @@ use Terminal42\ActiveCollabApi\Repository\Milestones;
  */
 class Milestone extends AbstractModel implements StateInterface
 {
+    use ProjectObjectTrait;
+
     /**
      * @var Milestones
      */

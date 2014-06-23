@@ -12,6 +12,8 @@ use Terminal42\ActiveCollabApi\Repository\TextDocuments;
  */
 class TextDocument extends AbstractModel implements StateInterface
 {
+    use ProjectObjectTrait;
+
     /**
      * @var TextDocuments
      */

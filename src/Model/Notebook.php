@@ -12,6 +12,8 @@ use Terminal42\ActiveCollabApi\Repository\Notebooks;
  */
 class Notebook extends AbstractModel implements StateInterface
 {
+    use ProjectObjectTrait;
+
     /**
      * @var Notebooks
      */

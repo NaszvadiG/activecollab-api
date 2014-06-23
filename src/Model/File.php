@@ -12,6 +12,8 @@ use Terminal42\ActiveCollabApi\Repository\Files;
  */
 class File extends AbstractModel implements StateInterface
 {
+    use ProjectObjectTrait;
+
     /**
      * @var Files
      */

@@ -12,6 +12,8 @@ use Terminal42\ActiveCollabApi\Repository\Discussions;
  */
 class Discussion extends AbstractModel implements StateInterface
 {
+    use ProjectObjectTrait;
+
     /**
      * @var Discussions
      */

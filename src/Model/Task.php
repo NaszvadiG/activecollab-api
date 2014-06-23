@@ -30,6 +30,8 @@ use Terminal42\ActiveCollabApi\Command\StateInterface;
  */
 class Task extends AbstractModel implements StateInterface, CompletionStatusInterface
 {
+    use ProjectObjectTrait;
+
     /**
      * @var Tasks
      */
