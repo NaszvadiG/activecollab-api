@@ -127,10 +127,9 @@ class BaseApiClient
      * @throws Exception\ApiException
      * @throws Exception\AuthenticationFailedException
      */
-    public function post($path, array $data)
+    public function post($path, array $data = array())
     {
         // Apparently the activeCollab API requires this
-        // @todo check if really necessary
         if (!isset($data['submitted'])) {
             $data['submitted'] = 'submitted';
         }

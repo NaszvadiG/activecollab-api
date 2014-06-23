@@ -12,11 +12,11 @@ class Subscription extends AbstractRepository
 
     public function subscribe()
     {
-        $this->getApiClient()->get($this->getContext().'/subscribe');
+        $this->getApiClient()->post($this->getContext().'/subscribe');
     }
 
     public function unsubscribe()
     {
-        $this->getApiClient()->get($this->getContext().'/unsubscribe');
+        $this->getApiClient()->post($this->getContext().'/unsubscribe');
     }
 }
