@@ -7,16 +7,12 @@ use Terminal42\ActiveCollabApi\Repository\Users;
 
 abstract class AbstractModel
 {
+    use RepositoryAwareTrait;
 
     /**
      * @var object
      */
     protected $data;
-
-    /**
-     * @var AbstractRepository
-     */
-    protected $repository;
 
     /**
      * @param \stdClass $data
@@ -53,13 +49,5 @@ abstract class AbstractModel
         }
 
         return $varValue;
-    }
-
-    /**
-     * @return AbstractRepository
-     */
-    public function getRepository()
-    {
-        return $this->repository;
     }
 }
