@@ -12,21 +12,21 @@ class State extends AbstractRepository
 
     public function archive()
     {
-        $this->getApiClient()->sendCommand($this->getContext().'/archive');
+        $this->getApiClient()->get($this->getContext().'/archive');
     }
 
     public function unarchive()
     {
-        $this->getApiClient()->sendCommand($this->getContext().'/unarchive');
+        $this->getApiClient()->get($this->getContext().'/unarchive');
     }
 
     public function trash()
     {
-        $this->getApiClient()->sendCommand($this->getContext().'/trash');
+        $this->getApiClient()->get($this->getContext().'/trash');
     }
 
     public function untrash()
     {
-        $this->getApiClient()->sendCommand($this->getContext().'/untrash');
+        $this->getApiClient()->get($this->getContext().'/untrash');
     }
 }

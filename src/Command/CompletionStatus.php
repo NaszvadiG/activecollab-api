@@ -12,11 +12,11 @@ class CompletionStatus extends AbstractRepository
 
     public function complete()
     {
-        $this->getApiClient()->sendCommand($this->getContext().'/complete');
+        $this->getApiClient()->get($this->getContext().'/complete');
     }
 
     public function reopen()
     {
-        $this->getApiClient()->sendCommand($this->getContext().'/reopen');
+        $this->getApiClient()->get($this->getContext().'/reopen');
     }
 }

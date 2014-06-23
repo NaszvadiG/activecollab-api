@@ -15,7 +15,7 @@ class Files extends AbstractRepository
     public function findAll()
     {
         $files = array();
-        $records = $this->getApiClient()->sendCommand($this->getProjectContext() . '/files/files');
+        $records = $this->getApiClient()->get($this->getProjectContext() . '/files/files');
 
         foreach ($records as $data) {
             $files[] = new File($data, $this);

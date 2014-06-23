@@ -15,7 +15,7 @@ class TextDocuments extends AbstractRepository
     public function findAll()
     {
         $documents = array();
-        $records = $this->getApiClient()->sendCommand($this->getProjectContext() . '/files/text-documents');
+        $records = $this->getApiClient()->get($this->getProjectContext() . '/files/text-documents');
 
         foreach ($records as $data) {
             $documents[] = new TextDocument($data, $this);

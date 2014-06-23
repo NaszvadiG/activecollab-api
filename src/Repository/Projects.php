@@ -14,7 +14,7 @@ class Projects extends AbstractRepository
     public function findAll()
     {
         $projects = array();
-        $records = $this->getApiClient()->sendCommand('projects');
+        $records = $this->getApiClient()->get('projects');
 
         foreach ($records as $data) {
             $projects[] = new Project($data, $this);
@@ -30,7 +30,7 @@ class Projects extends AbstractRepository
     public function findArchived()
     {
         $projects = array();
-        $records = $this->getApiClient()->sendCommand('projects/archive');
+        $records = $this->getApiClient()->get('projects/archive');
 
         foreach ($records as $data) {
             $projects[] = new Project($data, $this);
@@ -47,7 +47,7 @@ class Projects extends AbstractRepository
     public function findByIdOrSlug($id)
     {
         return new Project(
-            $this->getApiClient()->sendCommand('projects/'.$id),
+            $this->getApiClient()->get('projects/'.$id),
             $this
         );
     }

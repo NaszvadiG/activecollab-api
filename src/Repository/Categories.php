@@ -15,7 +15,7 @@ class Categories extends AbstractRepository
     public function findAll()
     {
         $categories = array();
-        $records = $this->getApiClient()->sendCommand($this->getContext().'/categories');
+        $records = $this->getApiClient()->get($this->getContext().'/categories');
 
         foreach ($records as $data) {
             $categories[] = new Category($data, $this);

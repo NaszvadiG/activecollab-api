@@ -10,12 +10,12 @@ class Comments extends AbstractRepository
 
     public function lock()
     {
-        $this->apiClient->sendCommand($this->context.'/comments/lock');
+        $this->getApiClient()->get($this->context.'/comments/lock');
     }
 
     public function unlock()
     {
-        $this->apiClient->sendCommand($this->context.'/comments/unlock');
+        $this->getApiClient()->get($this->context.'/comments/unlock');
     }
 
     /**
@@ -25,7 +25,7 @@ class Comments extends AbstractRepository
     public function findAll()
     {
         $comments = array();
-        $records = $this->apiClient->sendCommand($this->context.'/comments');
+        $records = $this->getApiClient()->get($this->context.'/comments');
 
         foreach ($records as $data) {
             $comments[] = new Comment($data, $this);

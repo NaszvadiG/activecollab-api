@@ -14,7 +14,7 @@ class Companies extends AbstractRepository
     public function findAll()
     {
         $companies = array();
-        $records = $this->apiClient->sendCommand('people');
+        $records = $this->getApiClient()->get('people');
 
         foreach ($records as $data) {
             $companies[] = new Company($data, $this);
@@ -30,7 +30,7 @@ class Companies extends AbstractRepository
     public function findArchived()
     {
         $companies = array();
-        $records = $this->apiClient->sendCommand('people/archive');
+        $records = $this->getApiClient()->get('people/archive');
 
         foreach ($records as $data) {
             $companies[] = new Company($data, $this);

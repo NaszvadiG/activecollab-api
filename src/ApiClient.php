@@ -2,62 +2,22 @@
 
 namespace Terminal42\ActiveCollabApi;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Message\ResponseInterface;
-use Terminal42\ActiveCollabApi\Exception\ApiException;
-use Terminal42\ActiveCollabApi\Exception\ApiDisabledException;
-use Terminal42\ActiveCollabApi\Exception\AuthenticationFailedException;
 use Terminal42\ActiveCollabApi\Model\Info;
 use Terminal42\ActiveCollabApi\Repository\Attachments;
 use Terminal42\ActiveCollabApi\Repository\Categories;
 use Terminal42\ActiveCollabApi\Repository\Comments;
 use Terminal42\ActiveCollabApi\Repository\Companies;
+use Terminal42\ActiveCollabApi\Repository\Discussions;
+use Terminal42\ActiveCollabApi\Repository\Files;
+use Terminal42\ActiveCollabApi\Repository\Milestones;
+use Terminal42\ActiveCollabApi\Repository\Notebooks;
 use Terminal42\ActiveCollabApi\Repository\Projects;
 use Terminal42\ActiveCollabApi\Repository\Tasks;
+use Terminal42\ActiveCollabApi\Repository\TextDocuments;
 use Terminal42\ActiveCollabApi\Repository\Users;
 
-class ApiClient
+class ApiClient extends BaseApiClient
 {
-    /**
-     * URL to activeCollab api.php
-     * @var string
-     */
-    protected $base_url;
-
-    /**
-     * activeCollab API token
-     * @var string
-     */
-    protected $api_token;
-
-    /**
-     * HTTP client
-     * @var ClientInterface
-     */
-    protected $client;
-
-    /**
-     * HTTP response
-     * @var ResponseInterface
-     */
-    protected $response;
-
-
-    public function __construct($base_url, $api_token, ClientInterface $client = null)
-    {
-        $this->client = $client;
-        $this->base_url = $base_url;
-        $this->api_token = $api_token;
-
-        if (null === $client) {
-            $this->client = new Client();
-        }
-
-        if ($this->sendRequest('check_if_alive=1', false)->api_is_alive != 'yes') {
-            throw new ApiDisabledException($this->response);
-        }
-    }
 
     /**
      * Returns the system information about the installation that you are working with.
@@ -67,7 +27,7 @@ class ApiClient
      */
     public function getInfo()
     {
-        return new Info($this->sendCommand('info'));
+        return new Info($this->get('info'));
     }
 
     /**
@@ -115,6 +75,71 @@ class ApiClient
     }
 
     /**
+     * Get discussions repository for given project
+     * @param  string $id_or_slug
+     * @return Discussions
+     */
+    public function discussionsForProject($id_or_slug)
+    {
+        $repository = new Discussions($this);
+        $repository->setProjectId($id_or_slug);
+
+        return $repository;
+    }
+
+    /**
+     * Get notebooks repository for given project
+     * @param  string $id_or_slug
+     * @return Notebooks
+     */
+    public function notebooksForProject($id_or_slug)
+    {
+        $repository = new Notebooks($this);
+        $repository->setProjectId($id_or_slug);
+
+        return $repository;
+    }
+
+    /**
+     * Get milestones repository for given project
+     * @param  string $id_or_slug
+     * @return Milestones
+     */
+    public function milestonesForProject($id_or_slug)
+    {
+        $repository = new Milestones($this);
+        $repository->setProjectId($id_or_slug);
+
+        return $repository;
+    }
+
+    /**
+     * Get files repository for given project
+     * @param  string $id_or_slug
+     * @return Files
+     */
+    public function filesForProject($id_or_slug)
+    {
+        $repository = new Files($this);
+        $repository->setProjectId($id_or_slug);
+
+        return $repository;
+    }
+
+    /**
+     * Get text documents repository for given project
+     * @param  string $id_or_slug
+     * @return TextDocuments
+     */
+    public function textDocumentsForProject($id_or_slug)
+    {
+        $repository = new TextDocuments($this);
+        $repository->setProjectId($id_or_slug);
+
+        return $repository;
+    }
+
+    /**
      * Get comments repository for given context
      * @param $context
      * @return Comments
@@ -151,63 +176,5 @@ class ApiClient
         $repository->setContext($context);
 
         return $repository;
-    }
-
-
-    public function sendCommand($command)
-    {
-        return $this->sendRequest('path_info='.$command);
-    }
-
-    /**
-     * @param string $query
-     * @param bool $authenticate
-     * @return object
-     * @throws Exception\ApiException
-     * @throws Exception\AuthenticationFailedException
-     */
-    public function sendRequest($query, $authenticate = true)
-    {
-        if ($authenticate) {
-            $query .= '&auth_api_token=' . $this->api_token;
-        }
-
-        $request = $this->client->createRequest($this->base_url . '?' . $query);
-        $request->addHeader('Accept', 'application/json');
-
-        /** @var ResponseInterface $response */
-        $response = $this->client->send($request);
-
-        if ($response->getStatusCode() < 200 || $response->getStatusCode() >= 300) {
-            switch ($response->getStatusCode()) {
-                case 403:
-                    throw new AuthenticationFailedException($response);
-
-                default:
-                    throw new ApiException($response);
-            }
-        }
-
-        return $this->parseResponse($query, $response);
-    }
-
-    /**
-     * @param string $query
-     * @param ResponseInterface $response
-     * @return object
-     */
-    protected function parseResponse($query, ResponseInterface $response)
-    {
-        $this->response = $response;
-
-        switch ($query) {
-            case 'check_if_alive=1':
-                $xml = $response->xml();
-                return (object) array($xml->getName() => (string) $xml);
-                break;
-
-            default:
-                return $response->json();
-        }
     }
 }

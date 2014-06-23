@@ -15,7 +15,7 @@ class Milestones extends AbstractRepository
     public function findAll()
     {
         $milestones = array();
-        $records = $this->getApiClient()->sendCommand($this->getProjectContext() . '/milestones');
+        $records = $this->getApiClient()->get($this->getProjectContext() . '/milestones');
 
         foreach ($records as $data) {
             $milestones[] = new Milestone($data, $this);
