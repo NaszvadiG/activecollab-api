@@ -33,4 +33,17 @@ class Comments extends AbstractRepository
 
         return $comments;
     }
+
+    /**
+     * Find a comment by ID
+     * @param int $id
+     * @return Comment
+     */
+    public function findById($id)
+    {
+        return new Comment(
+            $this->getApiClient()->get($this->getContext() . '/comments/' . $id),
+            $this
+        );
+    }
 }

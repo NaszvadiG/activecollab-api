@@ -39,4 +39,17 @@ class Files extends AbstractRepository
 
         return $files;
     }
+
+    /**
+     * Find a file by ID
+     * @param int $id
+     * @return File
+     */
+    public function findById($id)
+    {
+        return new File(
+            $this->getApiClient()->get($this->getContext() . '/files/files/' . $id),
+            $this
+        );
+    }
 }
