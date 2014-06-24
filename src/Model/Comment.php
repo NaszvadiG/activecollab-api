@@ -6,7 +6,8 @@ use Terminal42\ActiveCollabApi\Repository\Comments;
 
 /**
  * Class Comment
- * @property string $body Comment text
+ * @property int $id
+ * @property string $body
  */
 class Comment extends AbstractModel
 {

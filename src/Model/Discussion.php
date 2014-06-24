@@ -9,6 +9,11 @@ use Terminal42\ActiveCollabApi\Repository\Discussions;
 /**
  * Class Discussion
  * @property int $id
+ * @property string $name
+ * @property string $body
+ * @property int $category_id
+ * @property int $visibility
+ * @property int $milestone_id
  */
 class Discussion extends AbstractModel implements StateInterface
 {
