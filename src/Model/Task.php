@@ -115,7 +115,7 @@ class Task extends AbstractModel implements
 
     /**
      * Get subscription commands for this task
-     * @return CompletionStatus
+     * @return Subscription
      */
     public function subscription()
     {
