@@ -38,6 +38,6 @@ class Discussion extends AbstractModel implements StateInterface
      */
     protected function getContext()
     {
-        return 'projects/'.$this->repository->getProjectId().'/discussions/'.$this->id;
+        return $this->repository->getContext().'/discussions/'.$this->id;
     }
 }

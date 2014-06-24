@@ -37,6 +37,6 @@ class File extends AbstractModel implements StateInterface
      */
     protected function getContext()
     {
-        return 'projects/'.$this->repository->getProjectId().'/files/files/'.$this->id;
+        return $this->repository->getContext().'/files/files/'.$this->id;
     }
 }

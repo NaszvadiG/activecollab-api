@@ -38,6 +38,6 @@ class Notebook extends AbstractModel implements StateInterface
      */
     protected function getContext()
     {
-        return 'projects/'.$this->repository->getProjectId().'/notebooks/'.$this->id;
+        return $this->repository->getContext().'/notebooks/'.$this->id;
     }
 }

@@ -37,6 +37,6 @@ class TextDocument extends AbstractModel implements StateInterface
      */
     protected function getContext()
     {
-        return 'projects/'.$this->repository->getProjectId().'/files/text-documents/'.$this->id;
+        return $this->repository->getContext().'/files/text-documents/'.$this->id;
     }
 }

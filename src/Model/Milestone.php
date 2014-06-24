@@ -38,6 +38,6 @@ class Milestone extends AbstractModel implements StateInterface
      */
     protected function getContext()
     {
-        return 'projects/'.$this->repository->getProjectId().'/milestones/'.$this->id;
+        return $this->repository->getContext().'/milestones/'.$this->id;
     }
 }
