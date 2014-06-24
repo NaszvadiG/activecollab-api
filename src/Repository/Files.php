@@ -52,4 +52,33 @@ class Files extends AbstractRepository
             $this
         );
     }
+
+    // @todo implement projects/:project_id/files/files/upload
+
+    /**
+     * Update file on the project
+     * @param File $file
+     * @return File
+     */
+    public function update(File $file)
+    {
+        $result = $this->getApiClient()->post(
+            $this->getContext().'/milestones/'.$file->id.'/edit',
+            $this->getPostData($file)
+        );
+
+        return new File($result, $this);
+    }
+
+    /**
+     * Validate and prepare file properties for POST
+     * @param File $file
+     * @return array
+     */
+    protected function getPostData(File $file)
+    {
+        return $this->compilePostFields($file, [
+            'name'            => 'string',
+        ]);
+    }
 }
