@@ -25,7 +25,7 @@ class Comments extends AbstractRepository
     public function findAll()
     {
         $comments = array();
-        $records = $this->getApiClient()->get($this->context.'/comments');
+        $records = $this->getApiClient()->get($this->getContext() . '/comments');
 
         foreach ($records as $data) {
             $comments[] = new Comment($data, $this);
