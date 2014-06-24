@@ -90,7 +90,6 @@ class Discussions extends AbstractRepository
      */
     protected function getPostData(Discussion $discussion)
     {
-        // @todo validate discussion properties
         return $this->compilePostFields($discussion, [
             'name'         => 'string',
             'body'         => 'string',
