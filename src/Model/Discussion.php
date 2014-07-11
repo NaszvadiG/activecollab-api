@@ -26,6 +26,7 @@ use Terminal42\ActiveCollabApi\Repository\RemindersInterface;
  * @property int $category_id
  * @property int $visibility
  * @property int $milestone_id
+ * @method Discussions getRepository()
  */
 class Discussion extends AbstractModel implements
     CategoriesInterface,
@@ -37,11 +38,6 @@ class Discussion extends AbstractModel implements
 {
     use ProjectObjectTrait;
 
-    /**
-     * @var Discussions
-     */
-    protected $repository;
-
 
     /**
      * Get categories repository for this discussion
@@ -49,7 +45,7 @@ class Discussion extends AbstractModel implements
      */
     public function categories()
     {
-        $categories = new Categories($this->repository->getApiClient());
+        $categories = new Categories($this->getRepository()->getApiClient());
         $categories->setContext($this->getContext());
 
         return $categories;
@@ -61,7 +57,7 @@ class Discussion extends AbstractModel implements
      */
     public function attachments()
     {
-        $attachments = new Attachments($this->repository->getApiClient());
+        $attachments = new Attachments($this->getRepository()->getApiClient());
         $attachments->setContext($this->getContext());
 
         return $attachments;
@@ -73,7 +69,7 @@ class Discussion extends AbstractModel implements
      */
     public function comments()
     {
-        $comments = new Comments($this->repository->getApiClient());
+        $comments = new Comments($this->getRepository()->getApiClient());
         $comments->setContext($this->getContext());
 
         return $comments;
@@ -85,7 +81,7 @@ class Discussion extends AbstractModel implements
      */
     public function reminders()
     {
-        $categories = new Reminders($this->repository->getApiClient());
+        $categories = new Reminders($this->getRepository()->getApiClient());
         $categories->setContext($this->getContext());
 
         return $categories;
@@ -97,7 +93,7 @@ class Discussion extends AbstractModel implements
      */
     public function subscription()
     {
-        $subscription = new Subscription($this->repository->getApiClient());
+        $subscription = new Subscription($this->getRepository()->getApiClient());
         $subscription->setContext($this->getContext());
 
         return $subscription;
@@ -109,7 +105,7 @@ class Discussion extends AbstractModel implements
      */
     public function state()
     {
-        $state = new State($this->repository->getApiClient());
+        $state = new State($this->getRepository()->getApiClient());
         $state->setContext($this->getContext());
 
         return $state;
@@ -121,6 +117,6 @@ class Discussion extends AbstractModel implements
      */
     protected function getContext()
     {
-        return $this->repository->getContext().'/discussions/'.$this->id;
+        return $this->getRepository()->getContext().'/discussions/'.$this->id;
     }
 }

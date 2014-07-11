@@ -16,21 +16,17 @@ use Terminal42\ActiveCollabApi\Repository\Companies;
  * @property string $office_fax
  * @property string $office_homepage
  * @property string $note
+ * @method Companies getRepository()
  */
 class Company extends AbstractModel implements StateInterface
 {
-    /**
-     * @var Companies
-     */
-    protected $repository;
-
     /**
      * Get state commands for this company
      * @return State
      */
     public function state()
     {
-        $state = new State($this->repository->getApiClient());
+        $state = new State($this->getRepository()->getApiClient());
         $state->setContext('people/'.$this->id);
 
         return $state;

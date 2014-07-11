@@ -36,6 +36,7 @@ use Terminal42\ActiveCollabApi\Repository\Tasks;
  * @property int $created_by_id Use for a known user who already has an account in the system.
  * @property string $created_by_name Use for anonymous user, who don't have an account in the system (can not be used with created_by_id).
  * @property string $created_by_email Used for anonymous users.
+ * @method Tasks getRepository()
  */
 class Task extends AbstractModel implements
     CategoriesInterface,
@@ -49,17 +50,12 @@ class Task extends AbstractModel implements
     use ProjectObjectTrait;
 
     /**
-     * @var Tasks
-     */
-    protected $repository;
-
-    /**
      * Get subtasks repository for this task
      * @return Subtasks
      */
     public function subtasks()
     {
-        $subtasks = new Subtasks($this->repository->getApiClient());
+        $subtasks = new Subtasks($this->getRepository()->getApiClient());
         $subtasks->setContext($this->getContext());
 
         return $subtasks;
@@ -71,7 +67,7 @@ class Task extends AbstractModel implements
      */
     public function categories()
     {
-        $categories = new Categories($this->repository->getApiClient());
+        $categories = new Categories($this->getRepository()->getApiClient());
         $categories->setContext($this->getContext());
 
         return $categories;
@@ -83,7 +79,7 @@ class Task extends AbstractModel implements
      */
     public function attachments()
     {
-        $attachments = new Attachments($this->repository->getApiClient());
+        $attachments = new Attachments($this->getRepository()->getApiClient());
         $attachments->setContext($this->getContext());
 
         return $attachments;
@@ -95,7 +91,7 @@ class Task extends AbstractModel implements
      */
     public function comments()
     {
-        $comments = new Comments($this->repository->getApiClient());
+        $comments = new Comments($this->getRepository()->getApiClient());
         $comments->setContext($this->getContext());
 
         return $comments;
@@ -107,7 +103,7 @@ class Task extends AbstractModel implements
      */
     public function reminders()
     {
-        $categories = new Reminders($this->repository->getApiClient());
+        $categories = new Reminders($this->getRepository()->getApiClient());
         $categories->setContext($this->getContext());
 
         return $categories;
@@ -119,7 +115,7 @@ class Task extends AbstractModel implements
      */
     public function subscription()
     {
-        $subscription = new Subscription($this->repository->getApiClient());
+        $subscription = new Subscription($this->getRepository()->getApiClient());
         $subscription->setContext($this->getContext());
 
         return $subscription;
@@ -131,7 +127,7 @@ class Task extends AbstractModel implements
      */
     public function completionStatus()
     {
-        $completion = new CompletionStatus($this->repository->getApiClient());
+        $completion = new CompletionStatus($this->getRepository()->getApiClient());
         $completion->setContext($this->getContext());
 
         return $completion;
@@ -143,7 +139,7 @@ class Task extends AbstractModel implements
      */
     public function state()
     {
-        $state = new State($this->repository->getApiClient());
+        $state = new State($this->getRepository()->getApiClient());
         $state->setContext($this->getContext());
 
         return $state;
@@ -155,6 +151,6 @@ class Task extends AbstractModel implements
      */
     protected function getContext()
     {
-        return $this->repository->getContext().'/tasks/'.$this->id;
+        return $this->getRepository()->getContext().'/tasks/'.$this->id;
     }
 }

@@ -9,16 +9,11 @@ use Terminal42\ActiveCollabApi\Repository\Milestones;
 /**
  * Class Milestone
  * @property int $id
+ * @method Milestones getRepository()
  */
 class Milestone extends AbstractModel implements StateInterface
 {
     use ProjectObjectTrait;
-
-    /**
-     * @var Milestones
-     */
-    protected $repository;
-
 
     /**
      * Get state command for this milestone
@@ -26,7 +21,7 @@ class Milestone extends AbstractModel implements StateInterface
      */
     public function state()
     {
-        $state = new State($this->repository->getApiClient());
+        $state = new State($this->getRepository()->getApiClient());
         $state->setContext($this->getContext());
 
         return $state;
@@ -38,6 +33,6 @@ class Milestone extends AbstractModel implements StateInterface
      */
     protected function getContext()
     {
-        return $this->repository->getContext().'/milestones/'.$this->id;
+        return $this->getRepository()->getContext().'/milestones/'.$this->id;
     }
 }

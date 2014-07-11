@@ -8,17 +8,12 @@ use Terminal42\ActiveCollabApi\Repository\Comments;
  * Class Comment
  * @property int $id
  * @property string $body
+ * @method Comments getRepository()
  */
 class Comment extends AbstractModel
 {
-    /**
-     * @var Comments
-     */
-    protected $repository;
-
-
     public function attachments()
     {
-        return $this->repository->getApiClient()->attachmentsForContext($this->repository->getContext());
+        return $this->getRepository()->getApiClient()->attachmentsForContext($this->getRepository()->getContext());
     }
 }

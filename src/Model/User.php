@@ -19,22 +19,18 @@ use Terminal42\ActiveCollabApi\Repository\Users;
  * @property string $title
  * @property string $phone_mobile
  * @property string $phone_work
+ * @method Users getRepository()
  */
 class User extends AbstractModel implements StateInterface
 {
-    /**
-     * @var Users
-     */
-    protected $repository;
-
     /**
      * Get state commands for this user
      * @return State
      */
     public function state()
     {
-        $state = new State($this->repository->getApiClient());
-        $state->setContext($this->repository->getContext().'/users/'.$this->id);
+        $state = new State($this->getRepository()->getApiClient());
+        $state->setContext($this->getRepository()->getContext().'/users/'.$this->id);
 
         return $state;
     }

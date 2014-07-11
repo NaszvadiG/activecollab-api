@@ -9,16 +9,11 @@ use Terminal42\ActiveCollabApi\Repository\Notebooks;
 /**
  * Class Notebook
  * @property int $id
+ * @method Notebooks getRepository()
  */
 class Notebook extends AbstractModel implements StateInterface
 {
     use ProjectObjectTrait;
-
-    /**
-     * @var Notebooks
-     */
-    protected $repository;
-
 
     /**
      * Get state commands for this notebook
@@ -26,7 +21,7 @@ class Notebook extends AbstractModel implements StateInterface
      */
     public function state()
     {
-        $state = new State($this->repository->getApiClient());
+        $state = new State($this->getRepository()->getApiClient());
         $state->setContext($this->getContext());
 
         return $state;
@@ -38,6 +33,6 @@ class Notebook extends AbstractModel implements StateInterface
      */
     protected function getContext()
     {
-        return $this->repository->getContext().'/notebooks/'.$this->id;
+        return $this->getRepository()->getContext().'/notebooks/'.$this->id;
     }
 }

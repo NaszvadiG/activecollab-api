@@ -32,21 +32,17 @@ use Terminal42\ActiveCollabApi\Repository\Projects;
  * @property $progress
  * @property \Terminal42\ActiveCollabApi\Model\User $leader
  * @property \Terminal42\ActiveCollabApi\Model\Company $company
+ * @method Projects getRepository()
  */
 class Project extends AbstractModel implements StateInterface
 {
-    /**
-     * @var Projects
-     */
-    protected $repository;
-
     /**
      * Get tasks repository for project
      * @return \Terminal42\ActiveCollabApi\Repository\Tasks
      */
     public function tasks()
     {
-        return $this->repository->getApiClient()->tasksForProject($this->id);
+        return $this->getRepository()->getApiClient()->tasksForProject($this->id);
     }
 
     /**
@@ -55,7 +51,7 @@ class Project extends AbstractModel implements StateInterface
      */
     public function discussions()
     {
-        return $this->repository->getApiClient()->discussionsForProject($this->id);
+        return $this->getRepository()->getApiClient()->discussionsForProject($this->id);
     }
 
     /**
@@ -64,7 +60,7 @@ class Project extends AbstractModel implements StateInterface
      */
     public function notebooks()
     {
-        return $this->repository->getApiClient()->notebooksForProject($this->id);
+        return $this->getRepository()->getApiClient()->notebooksForProject($this->id);
     }
 
     /**
@@ -73,7 +69,7 @@ class Project extends AbstractModel implements StateInterface
      */
     public function milestones()
     {
-        return $this->repository->getApiClient()->milestonesForProject($this->id);
+        return $this->getRepository()->getApiClient()->milestonesForProject($this->id);
     }
 
     /**
@@ -82,7 +78,7 @@ class Project extends AbstractModel implements StateInterface
      */
     public function files()
     {
-        return $this->repository->getApiClient()->filesForProject($this->id);
+        return $this->getRepository()->getApiClient()->filesForProject($this->id);
     }
 
     /**
@@ -91,7 +87,7 @@ class Project extends AbstractModel implements StateInterface
      */
     public function textDocuments()
     {
-        return $this->repository->getApiClient()->textDocumentsForProject($this->id);
+        return $this->getRepository()->getApiClient()->textDocumentsForProject($this->id);
     }
 
     /**
@@ -100,7 +96,7 @@ class Project extends AbstractModel implements StateInterface
      */
     public function categories()
     {
-        return $this->repository->getApiClient()->categoriesForContext($this->getContext());
+        return $this->getRepository()->getApiClient()->categoriesForContext($this->getContext());
     }
 
     /**
@@ -109,7 +105,7 @@ class Project extends AbstractModel implements StateInterface
      */
     public function state()
     {
-        $state = new State($this->repository->getApiClient());
+        $state = new State($this->getRepository()->getApiClient());
         $state->setContext($this->getContext());
 
         return $state;

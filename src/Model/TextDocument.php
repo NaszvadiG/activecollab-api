@@ -9,15 +9,11 @@ use Terminal42\ActiveCollabApi\Repository\TextDocuments;
 /**
  * Class TextDocument
  * @property int $id
+ * @method TextDocuments getRepository()
  */
 class TextDocument extends AbstractModel implements StateInterface
 {
     use ProjectObjectTrait;
-
-    /**
-     * @var TextDocuments
-     */
-    protected $repository;
 
     /**
      * Get state commands for this notebook
@@ -25,7 +21,7 @@ class TextDocument extends AbstractModel implements StateInterface
      */
     public function state()
     {
-        $state = new State($this->repository->getApiClient());
+        $state = new State($this->getRepository()->getApiClient());
         $state->setContext($this->getContext());
 
         return $state;
@@ -37,6 +33,6 @@ class TextDocument extends AbstractModel implements StateInterface
      */
     protected function getContext()
     {
-        return $this->repository->getContext().'/files/text-documents/'.$this->id;
+        return $this->getRepository()->getContext().'/files/text-documents/'.$this->id;
     }
 }

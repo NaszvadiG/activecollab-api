@@ -21,7 +21,7 @@ abstract class AbstractModel
     public function __construct(\stdClass $data, AbstractRepository $repository = null)
     {
         $this->data = $data;
-        $this->repository = $repository;
+        $this->setRepository($repository);
     }
 
     /**
@@ -44,7 +44,7 @@ abstract class AbstractModel
 
                 // Convert to User object
                 case 'Administrator':
-                    $varValue = new User($varValue, new Users($this->repository->getApiClient()));
+                    $varValue = new User($varValue, new Users($this->getRepository()->getApiClient()));
                     break;
             }
         }
