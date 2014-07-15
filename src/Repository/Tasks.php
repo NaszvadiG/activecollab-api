@@ -90,20 +90,24 @@ class Tasks extends AbstractRepository
      */
     protected function getPostData(Task $task)
     {
-        return $this->compilePostFields($task, [
-            'name'             => 'string',
-            'body'             => 'text',
-            'visibility'       => 'integer',
-            'category_id'      => 'integer',
-            'label_id'         => 'integer',
-            'milestone_id'     => 'integer',
-            'priority'         => 'integer',
-            'assignee_id'      => 'integer',
-//            'other_assignees'  => 'array', @todo we don't know what the array looks like
-            'due_on'           => 'date',
-            'created_by_id'    => 'integer',
-            'created_by_name'  => 'string',
-            'created_by_email' => 'string'
-        ]);
+        return $this->compilePostFields(
+            $task,
+            [
+                'name'             => 'string',
+                'body'             => 'text',
+                'visibility'       => 'integer',
+                'category_id'      => 'integer',
+                'label_id'         => 'integer',
+                'milestone_id'     => 'integer',
+                'priority'         => 'integer',
+                'assignee_id'      => 'integer',
+    //            'other_assignees'  => 'array', @todo we don't know what the array looks like
+                'due_on'           => 'date',
+                'created_by_id'    => 'integer',
+                'created_by_name'  => 'string',
+                'created_by_email' => 'string'
+            ],
+            ['name']
+        );
     }
 }
