@@ -4,6 +4,7 @@ namespace Terminal42\ActiveCollabApi;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Message\RequestInterface;
 use GuzzleHttp\Message\ResponseInterface;
 use Terminal42\ActiveCollabApi\Exception\ApiException;
@@ -158,16 +159,22 @@ class BaseApiClient
             );
         }
 
-        /** @var ResponseInterface $response */
-        $response = $this->client->send($request);
+        try {
 
-        if ($response->getStatusCode() < 200 || $response->getStatusCode() >= 300) {
-            switch ($response->getStatusCode()) {
-                case 403:
-                    throw new AuthenticationFailedException($response);
+            /** @var ResponseInterface $response */
+            $response = $this->client->send($request);
 
-                default:
-                    throw new ApiException($response);
+        } catch (RequestException $e) {
+            $response = $e->getResponse();
+
+            if ($response->getStatusCode() < 200 || $response->getStatusCode() >= 300) {
+                switch ($response->getStatusCode()) {
+                    case 403:
+                        throw new AuthenticationFailedException($response);
+
+                    default:
+                        throw new ApiException($response);
+                }
             }
         }
 
