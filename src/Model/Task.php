@@ -21,8 +21,7 @@ use Terminal42\ActiveCollabApi\Repository\Tasks;
 
 /**
  * Class Task
- *
- * @property int $id
+ * *
  * @property string $name The Task name is a required field when creating a Task.
  * @property string $body The Task description.
  * @property int $visibility Object visibility. 0 is private and 1 is the value of normal visibility.
@@ -34,8 +33,14 @@ use Terminal42\ActiveCollabApi\Repository\Tasks;
  * @property array $other_assignees The people assigned to the Task.
  * @property \DateTime $due_on The task due date.
  * @property int $created_by_id Use for a known user who already has an account in the system.
- * @property string $created_by_name Use for anonymous user, who don't have an account in the system (can not be used with created_by_id).
- * @property string $created_by_email Used for anonymous users.
+ *
+ * @property-read int $id
+ * @property-read string $task_id
+ * @property-read array $created_by
+ *
+ * @property-write string $created_by_name Use for anonymous user, who don't have an account in the system (can not be used with created_by_id).
+ * @property-write string $created_by_email Used for anonymous users.
+ *
  * @method Tasks getRepository()
  */
 class Task extends AbstractModel implements
