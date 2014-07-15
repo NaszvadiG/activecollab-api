@@ -170,10 +170,10 @@ class BaseApiClient
             if ($response->getStatusCode() < 200 || $response->getStatusCode() >= 300) {
                 switch ($response->getStatusCode()) {
                     case 403:
-                        throw new AuthenticationFailedException($response);
+                        throw new AuthenticationFailedException($response, $e);
 
                     default:
-                        throw new ApiException($response);
+                        throw new ApiException($response, $e);
                 }
             }
         }

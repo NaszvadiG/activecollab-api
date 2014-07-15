@@ -12,9 +12,9 @@ class ApiException extends \Exception
      */
     protected $response;
 
-    public function __construct(ResponseInterface $response)
+    public function __construct(ResponseInterface $response, \Exception $previous = null)
     {
-        parent::__construct($response->getReasonPhrase(), $response->getStatusCode());
+        parent::__construct($response->getReasonPhrase(), $response->getStatusCode(), $previous);
 
         $this->response = $response;
     }
