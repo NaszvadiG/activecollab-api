@@ -5,6 +5,7 @@ namespace Terminal42\ActiveCollabApi\Repository;
 use Terminal42\ActiveCollabApi\ApiClient;
 use Terminal42\ActiveCollabApi\ApiClientAwareTrait;
 use Terminal42\ActiveCollabApi\Exception\InvalidFieldTypeException;
+use Terminal42\ActiveCollabApi\Exception\MandatoryFieldException;
 use Terminal42\ActiveCollabApi\Model\AbstractModel;
 
 abstract class AbstractRepository
@@ -21,11 +22,15 @@ abstract class AbstractRepository
 
     /**
      * Validate model fields and generate POST data array
+     *
      * @param AbstractModel $model
      * @param array         $config
+     * @param array         $mandatory
+     *
+     * @throws \Terminal42\ActiveCollabApi\Exception\MandatoryFieldException
      * @return array
      */
-    protected function compilePostFields(AbstractModel $model, array $config)
+    protected function compilePostFields(AbstractModel $model, array $config, array $mandatory = [])
     {
         $data = array();
         $invalid = function($property, $type) {
@@ -34,8 +39,12 @@ abstract class AbstractRepository
 
         foreach ($config as $property => $type) {
 
-            // @todo do we need an option to override this?
             if (!isset($model->$property)) {
+
+                if (in_array($property, $mandatory)) {
+                    throw new MandatoryFieldException('Field "'.$property.'" is mandatory');
+                }
+
                 continue;
             }
 
