@@ -23,7 +23,7 @@ class ApiException extends \Exception
      * Get HTTP response object
      * @return ResponseInterface
      */
-    public function getResponseObject()
+    public function getResponse()
     {
         return $this->response;
     }
