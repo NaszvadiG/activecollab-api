@@ -33,6 +33,10 @@ abstract class AbstractRepository
     protected function compilePostFields(AbstractModel $model, array $config, array $mandatory = [])
     {
         $data = array();
+        $classname = strtolower(get_class($model));
+
+        if ($pos = strrpos($classname, '\\')) $classname = substr($classname, $pos + 1);
+
         $invalid = function($property, $type) {
             throw new InvalidFieldTypeException('Property "'.$property.'" is not of type "'.$type.'"');
         };
@@ -75,7 +79,7 @@ abstract class AbstractRepository
                     throw new \LogicException('Unknown model property type "'.$type.'"');
             }
 
-            $data[$property] = $value;
+            $data[$classname.'['.$property.']'] = $value;
         }
 
         return $data;
