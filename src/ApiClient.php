@@ -19,6 +19,24 @@ use Terminal42\ActiveCollabApi\Repository\Users;
 
 class ApiClient extends BaseApiClient
 {
+    // Project object visibility
+    const VISIBILITY_PRIVATE = 0;
+    const VISIBILITY_NORMAL = 1;
+    const VISIBILITY_PUBLIC = 2;
+
+    // Available application object states
+    const STATE_DELETED = 0;
+    const STATE_TRASHED = 1;
+    const STATE_ARCHIVED = 2;
+    const STATE_VISIBLE = 3;
+
+    // Project object priority
+    const PRIORITY_LOWEST = -2;
+    const PRIORITY_LOW = -1;
+    const PRIORITY_NORMAL = 0;
+    const PRIORITY_HIGH = 1;
+    const PRIORITY_HIGHEST = 2;
+
 
     /**
      * Returns the system information about the installation that you are working with.
