@@ -31,6 +31,12 @@ class BaseApiClient
      */
     protected $response;
 
+    /**
+     * Set to true to fetch detailed results
+     * @var bool
+     */
+    protected $detailed = false;
+
 
     /**
      * Create API client for URL and token
@@ -82,6 +88,27 @@ class BaseApiClient
     public function getApiToken()
     {
         return $this->api_token;
+    }
+
+    /**
+     * Enable/disable detailed results
+     * @param bool $value
+     * @return $this
+     */
+    public function setDetailed($value)
+    {
+        $this->detailed = (bool) $value;
+
+        return $this;
+    }
+
+    /**
+     * Get current status of "detailed" flag
+     * @return bool
+     */
+    public function isDetailed()
+    {
+        return $this->detailed;
     }
 
     /**
@@ -155,6 +182,10 @@ class BaseApiClient
 
         $query = $request->getQuery();
         $query->set('format', 'json');
+
+        if ($this->detailed) {
+            $query->set('detailed', '1');
+        }
 
         if ($authenticate) {
             $query->set('auth_api_token', $this->api_token);
