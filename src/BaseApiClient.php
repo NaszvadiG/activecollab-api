@@ -153,11 +153,14 @@ class BaseApiClient
     {
         $request->addHeader('Accept', 'application/json');
 
+        $query = $request->getQuery();
+        $query->set('format', 'json');
+
         if ($authenticate) {
-            $request->setQuery(
-                $request->getQuery()->set('auth_api_token', $this->api_token)
-            );
+            $query->set('auth_api_token', $this->api_token);
         }
+
+        $request->setQuery($query);
 
         try {
 
