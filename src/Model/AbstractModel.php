@@ -10,18 +10,21 @@ abstract class AbstractModel
     use RepositoryAwareTrait;
 
     /**
-     * @var object
+     * @var array
      */
-    protected $data;
+    protected $data = array();
 
     /**
-     * @param \stdClass $data
+     * @param array              $data
      * @param AbstractRepository $repository
      */
-    public function __construct(\stdClass $data, AbstractRepository $repository = null)
+    public function __construct(array $data = [], AbstractRepository $repository = null)
     {
         $this->data = $data;
-        $this->setRepository($repository);
+
+        if (null !== $repository) {
+            $this->setRepository($repository);
+        }
     }
 
     /**
@@ -31,7 +34,7 @@ abstract class AbstractModel
      */
     public function __get($key)
     {
-        $varValue = $this->data->$key;
+        $varValue = $this->data[$key];
 
         if (is_object($varValue) && $varValue->class != '') {
             switch ($varValue->class) {
@@ -60,7 +63,7 @@ abstract class AbstractModel
      */
     public function __set($key, $value)
     {
-        $this->data->$key = $value;
+        $this->data[$key] = $value;
 
         return $this;
     }
@@ -72,6 +75,6 @@ abstract class AbstractModel
      */
     public function __isset($key)
     {
-        return isset($this->data->$key);
+        return isset($this->data[$key]);
     }
 }
